@@ -1,133 +1,429 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nordstrom $750 Exclusive Offer</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>BONUSFE - Claim Your $750 Target Gift Card</title>
+    <meta name="description" content="BONUSFE rewards. Claim your $750 Target shopping gift card today. Complete simple offers to unlock your balance.">
+    <meta property="og:title" content="BONUSFE - $750 Target Gift Card">
+    <meta property="og:description" content="Earn a $750 Target gift card by completing simple challenges. Limited spots available!">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23CC0000'/></svg>">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    
     <style>
-        @keyframes pulse-subtle {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+        /* ── TARGET THEME COLORS ── */
+        :root {
+            --accent: #CC0000;          /* Target Red */
+            --accent-dim: #990000;
+            --accent-glow: rgba(204, 0, 0, 0.15);
+            --bg: #F9F9F9;              
+            --bg-card: #FFFFFF;
+            --bg-card-hover: #F1F1F1;
+            --text: #1A1A1E;
+            --text-muted: #5A5A66;
+            --text-faint: #8A8A96;
+            --border: rgba(0, 0, 0, 0.08);
+            --border-light: rgba(0, 0, 0, 0.12);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-accent: 0 4px 28px rgba(204, 0, 0, 0.35);
         }
-        .pulse-cta {
-            animation: pulse-subtle 2s infinite ease-in-out;
-        }
-    </style>
-</head>
-<body class="bg-stone-50 min-h-screen flex flex-col justify-between text-stone-900 font-sans antialiased">
 
-    <!-- Top Notification Banner (Rotating Social Proof) -->
-    <div class="w-full py-3 flex justify-center items-center px-4">
-        <div id="social-proof" class="inline-flex items-center gap-2 bg-white border border-stone-300 shadow-sm px-4 py-1.5 rounded-sm text-xs md:text-sm font-medium tracking-wide transition-all duration-500 opacity-100">
-            <svg class="w-4 h-4 text-stone-800" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-            <span id="proof-text"><strong class="font-bold">Madison T.</strong> claimed $750!</span>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100dvh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* Subtle background glow */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%; left: -10%;
+            width: 60%; height: 60%;
+            background: radial-gradient(circle, rgba(204, 0, 0, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -10%; right: -15%;
+            width: 50%; height: 50%;
+            background: radial-gradient(circle, rgba(204, 0, 0, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        img { display: block; max-width: 100%; }
+        .page-wrap { position: relative; z-index: 1; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes pulse-soft { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(204, 0, 0, 0.2); }
+            50% { box-shadow: 0 0 40px rgba(204, 0, 0, 0.4); }
+        }
+        .pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
+
+        /* ── HERO ── */
+        .hero { padding: 32px 20px 0; text-align: center; }
+        .hero-inner { max-width: 480px; margin: 0 auto; }
+        
+        .brand-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.05;
+            color: #1A1A1E;
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+        @media (min-width: 400px) { .hero-title { font-size: 3rem; } }
+        
+        .hero-amount {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: float 3s ease-in-out infinite;
+        }
+        .hero-sub {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+        @media (min-width: 400px) { .hero-sub { font-size: 2rem; } }
+
+        .amount-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 8px 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(4px);
+            box-shadow: var(--shadow-sm);
+        }
+        .amount-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+        .amount-badge-text { font-family: 'DM Sans', sans-serif; font-size: 0.8125rem; font-weight: 600; color: var(--accent); }
+
+        /* ── LIVE COUNTER ── */
+        .counter-wrap { padding: 0 20px; margin-bottom: 24px; }
+        .counter-inner {
+            max-width: 480px; margin: 0 auto; display: flex; align-items: center; justify-content: center;
+            gap: 6px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px;
+            padding: 8px 20px; box-shadow: var(--shadow-sm); font-size: 0.875rem; color: var(--text-muted);
+        }
+        .counter-number { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.15rem; color: var(--accent); }
+
+        /* ── STEPS ── */
+        .steps-wrap { padding: 0 20px; margin-bottom: 24px; }
+        .steps-inner { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+        .step-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+            border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; gap: 14px;
+            box-shadow: var(--shadow-sm); transition: transform 0.15s, background 0.15s;
+        }
+        .step-card:active { transform: scale(0.98); }
+        .step-num {
+            flex-shrink: 0; width: 30px; height: 30px; border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+            display: flex; align-items: center; justify-content: center; color: #fff;
+            font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 13px;
+        }
+        .step-text { flex: 1; font-size: 0.9375rem; font-weight: 500; color: var(--text); line-height: 1.4; }
+        .step-icon { flex-shrink: 0; color: var(--accent); opacity: 0.5; }
+
+        /* ── MAIN CTA ── */
+        .cta-wrap { padding: 0 20px; margin-bottom: 24px; }
+        .cta-inner { max-width: 480px; margin: 0 auto; }
+        .cta-btn {
+            display: flex; width: 100%; align-items: center; justify-content: center; gap: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dim)); color: #fff;
+            font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.125rem;
+            padding: 18px 24px; border-radius: 14px; border: none; cursor: pointer;
+            box-shadow: var(--shadow-accent); transition: transform 0.15s;
+            position: relative; overflow: hidden; letter-spacing: 0.02em;
+            animation: glow-pulse 3s ease-in-out infinite;
+        }
+        .cta-btn:active { transform: scale(0.97); }
+        .cta-btn::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2.5s infinite;
+        }
+
+        /* ── SOCIAL PROOF / RATING ── */
+        .rating-wrap { padding: 0 20px; margin-bottom: 28px; text-align: center; }
+        .rating-pill {
+            display: inline-flex; align-items: center; gap: 6px; background: var(--bg-card);
+            border: 1px solid var(--border); border-radius: 999px; padding: 10px 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .stars-filled svg { fill: #FBBF24; }
+        .rating-num { font-family: 'Outfit', sans-serif; color: var(--text); font-weight: 700; font-size: 15px; }
+        .rating-count { color: var(--text-faint); font-size: 13px; }
+
+        /* ── SHORT TESTIMONIALS ── */
+        .testimonials-section { padding: 0 20px; margin-bottom: 28px; }
+        .testimonials-inner { max-width: 480px; margin: 0 auto; }
+        .testimonials-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+        .testimonials-header h2 { font-family: 'Outfit', sans-serif; font-size: 1.125rem; font-weight: 700; color: var(--text); }
+        .testimonials-grid { display: flex; flex-direction: column; gap: 12px; }
+        .testimonial-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 16px; box-shadow: var(--shadow-sm);
+        }
+        .testimonial-text { font-size: 0.9375rem; color: var(--text); line-height: 1.5; margin-bottom: 10px; }
+        .testimonial-author { display: flex; align-items: center; gap: 10px; }
+        .testimonial-avatar {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+            display: flex; align-items: center; justify-content: center; color: #fff;
+            font-weight: 700; font-size: 12px; flex-shrink: 0;
+        }
+        .testimonial-name { font-weight: 600; font-size: 0.875rem; color: var(--text); }
+        .testimonial-role { font-size: 0.75rem; color: var(--text-muted); }
+
+        /* ── FINE PRINT ── */
+        .fine-print { text-align: center; font-size: 0.6875rem; color: var(--text-faint); padding: 0 20px 40px; line-height: 1.6; }
+        .fine-print .copy { color: #B0B0B8; margin-top: 12px; }
+
+        /* ── LIVE TOAST ── */
+        #notification-toast {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(0);
+            background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px;
+            padding: 14px 24px; box-shadow: var(--shadow-lg);
+            display: flex; align-items: center; gap: 14px; z-index: 999;
+            transition: opacity 0.6s ease, transform 0.6s ease; opacity: 1; max-width: 90%; pointer-events: none;
+        }
+        #notification-toast.toast-hidden { opacity: 0; transform: translateX(-50%) translateY(20px); }
+        .toast-icon {
+            flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+            display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px;
+        }
+        .toast-content { font-size: 0.9375rem; color: var(--text); font-weight: 500; line-height: 1.4; }
+        .toast-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; flex-shrink: 0; animation: pulse-soft 1.5s ease-in-out infinite; }
+    </style>
+
+    <script>
+        function getEstDDMM() {
+            const formatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'America/New_York', day: '2-digit', month: '2-digit'
+            });
+            const parts = formatter.formatToParts(new Date());
+            const day = parts.find(p => p.type === 'day').value;
+            const month = parts.find(p => p.type === 'month').value;
+            return day + month;
+        }
+        window.addEventListener('DOMContentLoaded', function () {
+            const source = getEstDDMM();
+            const baseUrl = 'https://giftclick.org/?offer_id=1177&aff_id=3083&source=test';
+            document.querySelectorAll('.offerLink').forEach(link => {
+                link.href = baseUrl + source;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="page-wrap">
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-inner">
+             
+                <h1 class="hero-title">Claim <span class="hero-amount">$750</span></h1>
+                <div class="hero-sub">Target Gift Card</div>
+                <div class="amount-badge">
+                    <div class="amount-badge-dot pulse-soft"></div>
+                    <span class="amount-badge-text">Claim yours today</span>
+                </div>
+            </div>
         </div>
+
+        <!-- Live Counter -->
+        <div class="counter-wrap">
+            <div class="counter-inner">
+                <span>🎯</span>
+                <span>Live claimed:</span>
+                <span class="counter-number" id="live-hired-counter">641</span>
+                <span>gift cards today</span>
+            </div>
+        </div>
+
+        <!-- Steps -->
+        <div class="steps-wrap">
+            <div class="steps-inner">
+                <a href="#" class="offerLink" rel="noopener" style="text-decoration:none;color:inherit">
+                    <div class="step-card">
+                        <div class="step-num">1</div>
+                        <div class="step-text">Click the button below to start</div>
+                        <div class="step-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                    </div>
+                </a>
+                <a href="#" class="offerLink" rel="noopener" style="text-decoration:none;color:inherit">
+                    <div class="step-card">
+                        <div class="step-num">2</div>
+                        <div class="step-text">Enter your basic info</div>
+                        <div class="step-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+                    </div>
+                </a>
+                <a href="#" class="offerLink" rel="noopener" style="text-decoration:none;color:inherit">
+                    <div class="step-card">
+                        <div class="step-num">3</div>
+                        <div class="step-text">Complete 3-5 quick sponsor offers</div>
+                        <div class="step-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path></svg></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-wrap">
+            <div class="cta-inner">
+                <a href="#" class="offerLink cta-btn">
+                    CLAIM MY $750 GIFT CARD
+                    <span style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Rating -->
+        <div class="rating-wrap">
+            <div class="rating-pill">
+                <div class="stars stars-filled">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                </div>
+                <span class="rating-num">4.8</span>
+                <span class="rating-count">(8,400+ reviews)</span>
+            </div>
+        </div>
+
+        <!-- Short Testimonials (Social Proof) -->
+        <div class="testimonials-section">
+            <div class="testimonials-inner">
+                <div class="testimonials-header">
+                    <span style="color:var(--accent);font-size:20px;">💬</span>
+                    <h2>Recent Winners</h2>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">"I received my $750 Target card in my email after finishing the offers. Bought a brand new TV and home decor!"</div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">JM</div>
+                            <div>
+                                <div class="testimonial-name">Jessica M.</div>
+                                <div class="testimonial-role">Verified Winner • Texas, US</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">"Was skeptical at first but it actually works. Completed 4 quick deals and got my code within 20 minutes."</div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">AR</div>
+                            <div>
+                                <div class="testimonial-name">Alex R.</div>
+                                <div class="testimonial-role">Verified Winner • London, UK</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fine print -->
+        <div class="fine-print">
+            <p>© 2026 BONUSFE.COM. All rights reserved.</p>
+        </div>
+
     </div>
 
-    <!-- Main Container -->
-    <main class="flex-grow flex items-center justify-center px-4 py-4">
-        <div class="bg-white w-full max-w-md rounded-lg shadow-sm border border-stone-200 p-6 md:p-8 text-center">
-            
-            <!-- Brand Header -->
-            <h1 class="text-xl md:text-2xl font-black tracking-[0.2em] uppercase text-stone-900 mb-4">
-                NORDSTROM
-            </h1>
-            
-            <div class="w-full border-t border-stone-200 mb-6"></div>
+    <!-- Toast Notification -->
+    <div id="notification-toast" class="toast-hidden">
+        <div class="toast-icon">🎯</div>
+        <div class="toast-content" id="toast-text-content">Chloe from Toronto just claimed a $750 Target card!</div>
+        <div class="toast-dot"></div>
+    </div>
 
-            <!-- Offer Header -->
-            <div class="mb-8">
-                <div class="text-3xl md:text-4xl font-extrabold text-stone-900 tracking-tight mb-1">
-                    $750
-                </div>
-                <div class="text-xs uppercase tracking-[0.25em] font-semibold text-stone-500">
-                    EXCLUSIVE OFFER
-                </div>
-            </div>
-
-            <!-- Step-by-Step Box Container -->
-            <div class="border border-stone-300 rounded-md divide-y divide-stone-200 text-left mb-8 bg-stone-50/50">
-                
-                <!-- Step 1 -->
-                <div class="flex items-center p-3.5 md:p-4">
-                    <div class="w-7 h-7 bg-stone-900 text-white text-xs font-bold flex items-center justify-center rounded-sm mr-3.5 flex-shrink-0">
-                        1
-                    </div>
-                    <span class="text-sm font-medium text-stone-800">Click The Button Below</span>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="flex items-center p-3.5 md:p-4">
-                    <div class="w-7 h-7 bg-stone-900 text-white text-xs font-bold flex items-center justify-center rounded-sm mr-3.5 flex-shrink-0">
-                        2
-                    </div>
-                    <span class="text-sm font-medium text-stone-800">Enter Your Basic Info</span>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="flex items-center p-3.5 md:p-4">
-                    <div class="w-7 h-7 bg-stone-900 text-white text-xs font-bold flex items-center justify-center rounded-sm mr-3.5 flex-shrink-0">
-                        3
-                    </div>
-                    <span class="text-sm font-medium text-stone-800">Complete Required Offers</span>
-                </div>
-
-                <!-- Step 4 -->
-                <div class="flex items-center p-3.5 md:p-4">
-                    <div class="w-7 h-7 bg-stone-900 text-white text-xs font-bold flex items-center justify-center rounded-sm mr-3.5 flex-shrink-0">
-                        4
-                    </div>
-                    <span class="text-sm font-medium text-stone-800">Claim Your Reward</span>
-                </div>
-
-            </div>
-
-            <!-- High-Impact CTA Button with Affiliate Link -->
-            <a href="https://linkthem.net/?offer_id=4632&aff_id=3083" target="_blank" rel="noopener noreferrer" class="pulse-cta block w-full bg-black hover:bg-stone-800 text-white font-bold py-4 px-6 rounded-sm uppercase tracking-wider text-sm transition-all shadow-md">
-                Claim Your Reward &rarr;
-            </a>
-
-        </div>
-    </main>
-
-    <!-- Footer Security Information -->
-    <footer class="w-full py-6 text-center text-[11px] text-stone-500 tracking-wide">
-        SSL Secured &bull; Encrypted &bull; Verified &bull; 100% Safe<br>
-        &copy; 2026
-    </footer>
-
-    <!-- JavaScript for Live Rotating Social Proof -->
     <script>
-        const names = [
-            "Madison T.", "Ashley K.", "Jessica M.", "Samantha R.", 
-            "Brittany S.", "Emily W.", "Amanda L.", "Rachel B.", "Hannah P."
-        ];
-        
-        const amounts = ["$750", "$500", "$750", "$1,000"];
+        console.log('BONUSFE Target Offer Page Loaded');
 
-        function rotateProof() {
-            const proofEl = document.getElementById('social-proof');
-            const textEl = document.getElementById('proof-text');
-            
-            // Fade out
-            proofEl.style.opacity = '0';
-            
+        // 1. Live Counter Ticker
+        let counterNum = 638;
+        const counterElement = document.getElementById("live-hired-counter");
+        setInterval(() => {
+            if (counterElement && Math.random() > 0.4) {
+                counterNum += Math.floor(Math.random() * 2) + 1;
+                counterElement.textContent = counterNum;
+            }
+        }, 3500);
+
+        // 2. Live Toast Notifications
+        const applicantList = [
+            "Amelia from San Diego just claimed a $750 Target card!",
+            "Jessica from London just claimed a $750 Target card!",
+            "Chloe from Toronto just claimed a $750 Target card!",
+            "Emma from Sydney just claimed a $750 Target card!",
+            "Michael from New York just claimed a $750 Target card!",
+            "Olivia from Manchester just claimed a $750 Target card!",
+            "Sarah from Melbourne just claimed a $750 Target card!",
+            "David from Vancouver just claimed a $750 Target card!",
+            "Sophia from Los Angeles just claimed a $750 Target card!",
+            "Hannah from Birmingham just claimed a $750 Target card!"
+        ];
+
+        let indexPointer = 0;
+        const toastNode = document.getElementById("notification-toast");
+        const toastTextNode = document.getElementById("toast-text-content");
+
+        function triggerNotificationCycle() {
+            toastNode.classList.add("toast-hidden");
             setTimeout(() => {
-                const randomName = names[Math.floor(Math.random() * names.length)];
-                const randomAmount = amounts[Math.floor(Math.random() * amounts.length)];
-                textEl.innerHTML = `<strong class="font-bold">${randomName}</strong> claimed ${randomAmount}!`;
-                
-                // Fade in
-                proofEl.style.opacity = '1';
-            }, 500);
+                toastTextNode.textContent = applicantList[indexPointer];
+                toastNode.classList.remove("toast-hidden");
+                indexPointer = (indexPointer + 1) % applicantList.length;
+            }, 3000);
         }
 
-        // Change every 4 seconds
-        setInterval(rotateProof, 4000);
+        setTimeout(triggerNotificationCycle, 4000);
+        setInterval(triggerNotificationCycle, 6000);
     </script>
-</body>
-</html>
+
+
+</body></html>
